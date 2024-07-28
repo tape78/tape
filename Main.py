@@ -41,7 +41,12 @@ async def help(ctx):
 
 @bot.slash_command(description="Gives the bot information",name="botinfo")
 async def botinfo(ctx):
-    await ctx.send(f"Bot info: \n Author: {bot.owner} \n Bot: {bot.user.id} \n Prefix: {bot.command_prefix}")
+    embed = disnake.Embed(title=f"Bot information: {bot.user}")
+    embed.set_thumbnail(url="Add image URL here")
+    embed.add_field(name="Username", value=bot.name, inline=True)
+    embed.add_field(name="Account Created", value=bot.created_at.strftime("%b %d, %Y"), inline=True)
+    embed.add_field(name="Author", value=bot.owner, inline=True )
+    await ctx.send(embed=embed)
 
 @bot.slash_command(name="userinfo", description="Displays user information", guild_ids=test_guilds)
 async def userinfo(inter: disnake.ApplicationCommandInteraction, user: disnake.Member):
