@@ -21,7 +21,7 @@ intents.presences = True
 intents.reactions = True
 command_sync_flags = commands.CommandSyncFlags.default()
 command_sync_flags.sync_commands_debug = True
-bot = commands.Bot(command_prefix='!',test_guilds=[1139027263736786984],command_sync_flags=command_sync_flags,)
+bot = commands.Bot(command_prefix='!',test_guilds=[os.getenv('GUILD_IDS')],command_sync_flags=command_sync_flags,)
 
 @bot.event
 async def on_ready():
@@ -41,10 +41,9 @@ async def help(ctx):
 
 @bot.slash_command(description="Gives the bot information",name="botinfo")
 async def botinfo(ctx):
-    Bot_Id = "<@1264922460608925696>"
-    await ctx.send(f"Bot info: \n Author: {bot.owner} \n Bot: {Bot_Id} \n Prefix: {bot.command_prefix}")
+    await ctx.send(f"Bot info: \n Author: {bot.owner} \n Bot: {bot.user.id} \n Prefix: {bot.command_prefix}")
 
-@bot.slash_command(name="userinfo", description="Displays user information", guild_ids=[1139027263736786984])
+@bot.slash_command(name="userinfo", description="Displays user information", guild_ids=test_guilds)
 async def userinfo(inter: disnake.ApplicationCommandInteraction, user: disnake.Member):
     embed = disnake.Embed(title=f"User Information for {user.display_name}", color=0x7289DA)
     if user.avatar:
