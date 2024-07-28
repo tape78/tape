@@ -5,7 +5,7 @@ from typing import Final
 import os
 import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('disnake')
 logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
 handler = logging.FileHandler(filename='disnake.log', encoding='utf-8', mode='w')
@@ -45,7 +45,7 @@ async def botinfo(ctx):
     embed.set_thumbnail(url="Add image URL here")
     embed.add_field(name="Username", value=bot.name, inline=True)
     embed.add_field(name="Account Created", value=bot.created_at.strftime("%b %d, %Y"), inline=True)
-    embed.add_field(name="Author", value=bot.owner, inline=True )
+    embed.add_field(name="Author", value=str(bot.owner), inline=True )
     await ctx.send(embed=embed)
 
 @bot.slash_command(name="userinfo", description="Displays user information", guild_ids=test_guilds)
