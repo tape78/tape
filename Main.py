@@ -7,7 +7,6 @@ import logging
 
 logger = logging.getLogger('disnake')
 logger.setLevel(logging.DEBUG)
-handler = logging.StreamHandler()
 handler = logging.FileHandler(filename='disnake.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
@@ -55,10 +54,8 @@ async def userinfo(inter: disnake.ApplicationCommandInteraction, user: disnake.M
         embed.set_thumbnail(url=user.avatar.url)
     else:
         embed.set_thumbnail(url="https://www.google.com/imgres?q=discord%20default%20avatar&imgurl=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FFvpBu6vXwAAAKe4.jpg&imgrefurl=https%3A%2F%2Ftwitter.com%2FWeedleTwineedle%2Fstatus%2F1655708119987638272&docid=QRDp5NfhVRYrAM&tbnid=vUOZ3t1XrXZVvM&vet=12ahUKEwiL_uiR9MiHAxVWR2wGHfUeHgEQM3oECHAQAA..i&w=1200&h=900&hcb=2&ved=2ahUKEwiL_uiR9MiHAxVWR2wGHfUeHgEQM3oECHAQAA")  
-
     embed.add_field(name="Username", value=user.name, inline=True)
     embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y"), inline=True)
-    
     embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y"), inline=True)
     roles = [role.mention for role in user.roles if role.name != "@everyone"]
     embed.add_field(name="Roles", value=", ".join(roles) if roles else "No roles", inline=True)
